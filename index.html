@@ -1,7 +1,122 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta http-equiv="refresh" content="0; url=kids_book.html">
-</head>
-<body>Loading...</body>
-</html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌟 ABC & 123 – My First Learning Book</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;800&display=swap');
+:root{--yellow:#FFD93D;--orange:#FF6B35;--green:#6BCB77;--blue:#4D96FF;--pink:#FF6B9D;--purple:#A855F7;--red:#FF4757;--teal:#20C997;--bg:#FFF9F0;--card-shadow:0 8px 24px rgba(0,0,0,0.12)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;background:var(--bg);min-height:100vh;overflow-x:hidden}
+#cover{min-height:100vh;background:linear-gradient(135deg,#667eea 0%,#764ba2 50%,#f093fb 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 20px;position:relative;overflow:hidden}
+.cover-stars{font-size:2.5rem;letter-spacing:10px;margin-bottom:20px;animation:float 3s ease-in-out infinite}
+.cover-title{font-family:'Fredoka One',cursive;font-size:clamp(3rem,12vw,7rem);color:white;text-shadow:0 6px 20px rgba(0,0,0,0.3);line-height:1.1;margin-bottom:10px}
+.cover-subtitle{font-size:clamp(1.1rem,4vw,1.8rem);color:rgba(255,255,255,0.9);font-weight:800;margin-bottom:40px}
+.cover-characters{font-size:clamp(3rem,10vw,6rem);margin-bottom:40px}
+.start-btn{background:var(--yellow);color:#333;border:none;padding:18px 48px;font-size:1.4rem;font-weight:800;border-radius:50px;cursor:pointer;font-family:'Fredoka One',cursive;box-shadow:0 8px 0 #e0a800;transition:all 0.15s}
+.start-btn:hover{transform:translateY(3px);box-shadow:0 5px 0 #e0a800}
+#book{display:none}
+.page{display:none;min-height:100vh;padding:20px}
+.page.active{display:block}
+.nav-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;background:white;border-radius:20px;padding:12px 20px;box-shadow:var(--card-shadow);position:sticky;top:10px;z-index:100}
+.nav-btn{background:var(--blue);color:white;border:none;width:44px;height:44px;border-radius:50%;font-size:1.3rem;cursor:pointer;transition:transform 0.2s;display:flex;align-items:center;justify-content:center}
+.nav-btn:hover{transform:scale(1.1)}
+.nav-btn:disabled{background:#ccc;cursor:default}
+.home-btn{background:var(--orange);color:white;border:none;padding:10px 18px;border-radius:50px;font-weight:800;cursor:pointer;font-size:0.95rem}
+.section-title{font-family:'Fredoka One',cursive;font-size:clamp(2rem,7vw,3.5rem);text-align:center;margin-bottom:30px}
+.alpha-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:16px;max-width:900px;margin:0 auto}
+.alpha-card{background:white;border-radius:20px;padding:20px 10px;text-align:center;cursor:pointer;box-shadow:var(--card-shadow);transition:transform 0.2s;border-bottom:5px solid}
+.alpha-card:hover{transform:translateY(-6px)}
+.alpha-letter{font-family:'Fredoka One',cursive;font-size:3.2rem;line-height:1;margin-bottom:6px;display:block}
+.alpha-emoji{font-size:2rem;display:block;margin-bottom:4px}
+.alpha-word{font-size:0.85rem;font-weight:700;color:#555}
+.numbers-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:20px;max-width:900px;margin:0 auto}
+.number-card{background:white;border-radius:24px;padding:24px 16px;text-align:center;cursor:pointer;box-shadow:var(--card-shadow);transition:transform 0.2s;border-bottom:5px solid}
+.number-card:hover{transform:translateY(-6px) rotate(1deg)}
+.number-big{font-family:'Fredoka One',cursive;font-size:4rem;line-height:1;display:block;margin-bottom:8px}
+.number-dots{font-size:1.4rem;letter-spacing:3px;display:block;min-height:1.8rem;margin-bottom:8px}
+.number-word{font-weight:800;font-size:1rem;color:#444}
+.shapes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:20px;max-width:900px;margin:0 auto}
+.shape-card{background:white;border-radius:20px;padding:28px 16px;text-align:center;box-shadow:var(--card-shadow);cursor:pointer;transition:transform 0.2s;border-bottom:5px solid}
+.shape-card:hover{transform:scale(1.06)}
+.shape-svg{width:80px;height:80px;margin:0 auto 12px;display:block}
+.shape-name{font-family:'Fredoka One',cursive;font-size:1.3rem;color:#333}
+.colors-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:16px;max-width:900px;margin:0 auto}
+.color-card{border-radius:20px;padding:32px 16px;text-align:center;box-shadow:var(--card-shadow);cursor:pointer;transition:transform 0.2s;color:white;text-shadow:0 1px 3px rgba(0,0,0,0.25)}
+.color-card:hover{transform:scale(1.07)}
+.color-emoji{font-size:2.5rem;display:block;margin-bottom:10px}
+.color-name{font-family:'Fredoka One',cursive;font-size:1.5rem}
+.quiz-box{max-width:600px;margin:0 auto;text-align:center}
+.quiz-question{background:white;border-radius:24px;padding:36px 24px;margin-bottom:24px;box-shadow:var(--card-shadow)}
+.quiz-emoji{font-size:5rem;display:block;margin-bottom:16px}
+.quiz-text{font-family:'Fredoka One',cursive;font-size:clamp(1.4rem,5v
+    <div id="cover">
+<div class="cover-stars">⭐ 🌟 ⭐</div>
+<h1 class="cover-title">ABC<br>&amp; 123</h1>
+<p class="cover-subtitle">✨ My First Learning Book ✨</p>
+<div class="cover-characters">🐶 🌈 🚀 🎨</div>
+<button class="start-btn" onclick="startBook()">Let's Learn! 🎉</button>
+</div>
+<div id="book">
+<div id="menu-page">
+<h2 class="menu-title">📚 What do you want to learn today?</h2>
+<div class="menu-grid">
+<button class="menu-card" style="background:linear-gradient(135deg,#FF6B35,#FF8C5A);box-shadow:0 8px 0 #c0392b;" onclick="goToPage('page-alpha')"><span class="menu-icon">🔤</span><div class="menu-label">A B C</div><div class="menu-sub">The Alphabet</div></button>
+<button class="menu-card" style="background:linear-gradient(135deg,#4D96FF,#6aaeff);box-shadow:0 8px 0 #2980b9;" onclick="goToPage('page-numbers')"><span class="menu-icon">🔢</span><div class="menu-label">1 2 3</div><div class="menu-sub">Numbers</div></button>
+<button class="menu-card" style="background:linear-gradient(135deg,#A855F7,#c07aff);box-shadow:0 8px 0 #7c3aed;" onclick="goToPage('page-shapes')"><span class="menu-icon">🔵</span><div class="menu-label">Shapes</div><div class="menu-sub">Circle, Square...</div></button>
+<button class="menu-card" style="background:linear-gradient(135deg,#6BCB77,#8fe89a);box-shadow:0 8px 0 #27ae60;" onclick="goToPage('page-colors')"><span class="menu-icon">🎨</span><div class="menu-label">Colors</div><div class="menu-sub">Red, Blue, Green...</div></button>
+</div>
+<button class="menu-card" style="background:linear-gradient(135deg,#FF6B9D,#ff8db5);box-shadow:0 8px 0 #c0546c;max-width:500px;width:100%;margin-top:16px;" onclick="goToPage('page-quiz')"><span class="menu-icon">🧠</span><div class="menu-label">Quiz Time! 🎮</div><div class="menu-sub">Test what you know!</div></button>
+</div>
+<div class="page" id="page-alpha">
+<div class="nav-bar"><button class="home-btn" onclick="goMenu()">🏠 Menu</button><div>🔤 Alphabet</div><button class="nav-btn" onclick="goToPage('page-numbers')">▶</button></div>
+<h2 class="section-title" style="color:var(--orange)">🔤 The Alphabet</h2>
+<div class="alpha-grid" id="alpha-grid"></div>
+</div>
+<div class="page" id="page-numbers">
+<div class="nav-bar"><button class="nav-btn" onclick="goToPage('page-alpha')">◀</button><div>🔢 Numbers</div><button class="nav-btn" onclick="goToPage('page-shapes')">▶</button></div>
+<h2 class="section-title" style="color:var(--blue)">🔢 Numbers 1–10</h2>
+<div class="numbers-grid" id="numbers-grid"></div>
+</div>
+<div class="page" id="page-shapes">
+<div class="nav-bar"><button class="nav-btn" onclick="goToPage('page-numbers')">◀</button><div>🔵 Shapes</div><button class="nav-btn" onclick="goToPage('page-colors')">▶</button></div>
+<h2 class="section-title" style="color:var(--purple)">🔵 Shapes</h2>
+<div class="shapes-grid" id="shapes-grid"></div>
+</div>
+<div class="page" id="page-colors">
+<div class="nav-bar"><button class="nav-btn" onclick="goToPage('page-shapes')">◀</button><div>🎨 Colors</div><button class="nav-btn" onclick="goToPage('page-quiz')">▶</button></div>
+<h2 class="section-title" style="color:var(--green)">🎨 Colors</h2>
+<div class="colors-grid" id="colors-grid"></div>
+</div>
+<div class="page" id="page-quiz">
+<div class="nav-bar"><button class="nav-btn" onclick="goToPage('page-colors')">◀</button><div>🧠 Quiz!</div><button class="home-btn" onclick="goMenu()">🏠 Menu</button></div>
+<h2 class="section-title" style="color:var(--pink)">🧠 Quiz Time!</h2>
+<div class="quiz-box">
+<div class="quiz-score" id="quiz-score-display">Score: 0 ⭐</div>
+<div class="quiz-question" id="quiz-question-box"><span class="quiz-emoji" id="quiz-emoji">🐶</span><div class="quiz-text" id="quiz-text">Loading...</div></div>
+<div class="quiz-options" id="quiz-options"></div>
+<div class="quiz-feedback" id="quiz-feedback"></div>
+<button class="next-quiz-btn" id="next-quiz-btn" onclick="nextQuiz()">Next ➡️</button>
+</div>
+</div>
+</div>
+<div class="modal-overlay" id="modal" onclick="closeModal()">
+<div class="modal-box" onclick="event.stopPropagation()">
+<span class="modal-letter" id="modal-letter">A</span>
+<span class="modal-emoji" id="modal-emoji">🍎</span>
+<div class="modal-word" id="modal-word">Apple</div>
+<div class="modal-example" id="modal-example">A is for Apple</div>
+<button class="modal-close" onclick="closeModal()">Got it! 👍</button>
+</div>
+</div>       
+ <script>
+const alphabet=[{l:'A',e:'🍎',w:'Apple',c:'#FF6B35'},{l:'B',e:'🦋',w:'Butterfly',c:'#FF6B9D'},{l:'C',e:'🐱',w:'Cat',c:'#4D96FF'},{l:'D',e:'🐶',w:'Dog',c:'#6BCB77'},{l:'E',e:'🐘',w:'Elephant',c:'#A855F7'},{l:'F',e:'🐟',w:'Fish',c:'#20C997'},{l:'G',e:'🍇',w:'Grapes',c:'#FFD93D'},{l:'H',e:'🏠',w:'House',c:'#FF4757'},{l:'I',e:'🍦',w:'Ice Cream',c:'#FF6B9D'},{l:'J',e:'🦘',w:'Jumping',c:'#4D96FF'},{l:'K',e:'🪁',w:'Kite',c:'#FF6B35'},{l:'L',e:'🦁',w:'Lion',c:'#FFD93D'},{l:'M',e:'🌙',w:'Moon',c:'#A855F7'},{l:'N',e:'📔',w:'Notebook',c:'#6BCB77'},{l:'O',e:'🦉',w:'Owl',c:'#FF6B35'},{l:'P',e:'🐧',w:'Penguin',c:'#4D96FF'},{l:'Q',e:'👑',w:'Queen',c:'#FFD93D'},{l:'R',e:'🌈',w:'Rainbow',c:'#FF4757'},{l:'S',e:'⭐',w:'Star',c:'#FF6B9D'},{l:'T',e:'🐯',w:'Tiger',c:'#FF6B35'},{l:'U',e:'☂️',w:'Umbrella',c:'#A855F7'},{l:'V',e:'🎻',w:'Violin',c:'#20C997'},{l:'W',e:'🐳',w:'Whale',c:'#4D96FF'},{l:'X',e:'🎸',w:'Xylophone',c:'#FF6B9D'},{l:'Y',e:'🪀',w:'Yo-yo',c:'#FFD93D'},{l:'Z',e:'🦓',w:'Zebra',c:'#6BCB77'}];
+const numbers=[{n:1,e:'🌟',dots:'●',w:'One',c:'#FF6B35'},{n:2,e:'🦋',dots:'●●',w:'Two',c:'#FF6B9D'},{n:3,e:'🍎',dots:'●●●',w:'Three',c:'#4D96FF'},{n:4,e:'🐾',dots:'●●●●',w:'Four',c:'#6BCB77'},{n:5,e:'🖐️',dots:'●●●●●',w:'Five',c:'#A855F7'},{n:6,e:'🌺',dots:'●●●●●●',w:'Six',c:'#FFD93D'},{n:7,e:'🌈',dots:'●●●●●●●',w:'Seven',c:'#FF4757'},{n:8,e:'🐙',dots:'●●●●●●●●',w:'Eight',c:'#20C997'},{n:9,e:'⭐',dots:'●●●●●●●●●',w:'Nine',c:'#FF6B35'},{n:10,e:'🎉',dots:'●●●●●●●●●●',w:'Ten',c:'#FF6B9D'}];
+const shapes=[{name:'Circle',color:'#4D96FF',svg:`<svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="35" fill="#4D96FF"/></svg>`},{name:'Square',color:'#FF6B35',svg:`<svg viewBox="0 0 80 80"><rect x="8" y="8" width="64" height="64" rx="6" fill="#FF6B35"/></svg>`},{name:'Triangle',color:'#6BCB77',svg:`<svg viewBox="0 0 80 80"><polygon points="40,6 76,74 4,74" fill="#6BCB77"/></svg>`},{name:'Rectangle',color:'#A855F7',svg:`<svg viewBox="0 0 80 80"><rect x="4" y="20" width="72" height="40" rx="6" fill="#A855F7"/></svg>`},{name:'Star',color:'#FFD93D',svg:`<svg viewBox="0 0 80 80"><polygon points="40,5 49,30 76,30 55,47 63,72 40,57 17,72 25,47 4,30 31,30" fill="#FFD93D"/></svg>`},{name:'Heart',color:'#FF6B9D',svg:`<svg viewBox="0 0 80 80"><path d="M40,65 C10,45 5,20 20,12 C30,6 40,18 40,18 C40,18 50,6 60,12 C75,20 70,45 40,65Z" fill="#FF6B9D"/></svg>`},{name:'Diamond',color:'#20C997',svg:`<svg viewBox="0 0 80 80"><polygon points="40,5 75,40 40,75 5,40" fill="#20C997"/></svg>`},{name:'Oval',color:'#FF4757',svg:`<svg viewBox="0 0 80 80"><ellipse cx="40" cy="40" rx="36" ry="22" fill="#FF4757"/></svg>`}];
+const colors=[{name:'Red',hex:'#FF4757',e:'🍎',dark:false},{name:'Blue',hex:'#4D96FF',e:'🌊',dark:false},{name:'Green',hex:'#6BCB77',e:'🌿',dark:false},{name:'Yellow',hex:'#FFD93D',e:'☀️',dark:true},{name:'Orange',hex:'#FF6B35',e:'🍊',dark:false},{name:'Pink',hex:'#FF6B9D',e:'🌸',dark:false},{name:'Purple',hex:'#A855F7',e:'🔮',dark:false},{name:'White',hex:'#f0f0f0',e:'☁️',dark:true},{name:'Brown',hex:'#8B5E3C',e:'🍫',dark:false},{name:'Black',hex:'#2d2d2d',e:'🐈‍⬛',dark:false}];
+const quizQuestions=[{q:'What letter does 🐶 DOG start with?',ans:'D',opts:['A','D','G','P'],emoji:'🐶'},{q:'What letter does 🍎 APPLE start with?',ans:'A',opts:['A','B','E','P'],emoji:'🍎'},{q:'How many paws does a cat have?',ans:'4',opts:['2','4','6','8'],emoji:'🐈'},{q:'What color is the 🍎 apple?',ans:'Red',opts:['Blue','Green','Red','Yellow'],emoji:'🍎'},{q:'What letter does 🌈 RAINBOW start with?',ans:'R',opts:['R','W','B','N'],emoji:'🌈'},{q:'How many fingers on one hand?',ans:'5',opts:['3','4','5','6'],emoji:'🖐️'},{q:'What letter does ⭐ STAR start with?',ans:'S',opts:['T','S','R','A'],emoji:'⭐'},{q:'What shape has 3 sides?',ans:'Triangle',opts:['Circle','Square','Triangle','Rectangle'],emoji:'📐'},{q:'What color is the sky on a sunny day?',ans:'Blue',opts:['Green','Blue','Pink','Red'],emoji:'☁️'},{q:'What letter does 🐯 TIGER start with?',ans:'T',opts:['T','L','G','R'],emoji:'🐯'}];
+let quizIndex=0,quizScore=0,quizAnswered=false;
+function buildAlphabet(){document.getElementById('alpha-grid').innerHTML=alphabet.map(a=>`<div class="alpha-card" style="border-color:${a.c}" onclick="showLetterModal('${a.l}','${a.e}','${a.w}','${a.c}')"><span class="alpha-letter" style="color:${a.c}">${a.l}</span><span class="alpha-emoji">${a.e}</span><div class="alpha-word">${a.w}</div></div>`).join('')}
+function buildNumbers(){document.getElementById('numbers-grid').innerHTML=numbers.map(n=>`<div class="number-card" style="border-color:${n.c}" onclick="animateCard(this)"><span class="number-big" style="color:${n.c}">${n.n}</span><span class="number-dots" style="color:${n.c}">${n.dots}</span><span class="number-word" style="color:${n.c}">${n.w} ${n.e}</span></div>`).join('')}
+function buildShapes(){document.getElementById('shapes-grid').innerHTML=shapes.map(s=>`<div class="shape-card" style="border-color:${s.color}" onclick="animateCard(this)">${s.svg}<div class="shape-name" style="          
