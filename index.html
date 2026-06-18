@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Poster – ABC & 123</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Tajawal:wght@700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 16px;
+  }
+
+  .poster {
+    width: 100%;
+    max-width: 480px;
+    background: linear-gradient(160deg, #0f0c29, #302b63, #24243e);
+    border-radius: 32px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+    position: relative;
+  }
+
+  /* Decorative blobs */
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.35;
+    pointer-events: none;
+  }
+  .blob-1 { width: 260px; height: 260px; background: #ff6b9d; top: -80px; left: -60px; }
+  .blob-2 { width: 200px; height: 200px; background: #4d96ff; bottom: 100px; right: -60px; }
+  .blob-3 { width: 180px; height: 180px; background: #ffd93d; bottom: -60px; left: 40px; }
+
+  /* TOP BADGE */
+  .top-badge {
+    text-align: center;
+    padding: 22px 20px 0;
+    position: relative;
+    z-index: 2;
+  }
+  .badge-pill {
+    display: inline-block;
+    background: linear-gradient(90deg, #ff6b9d, #ff6b35);
+    color: white;
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 6px 20px;
+    border-radius: 50px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* HERO */
+  .hero {
+    text-align: center;
+    padding: 24px 20px 16px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-emojis {
+    font-size: 3.2rem;
+    letter-spacing: 8px;
+    display: block;
+    margin-bottom: 16px;
+    filter: drop-shadow(0 4px 12px rgba(255,255,255,0.3));
+  }
+
+  .hero-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(3.5rem, 18vw, 5.5rem);
+    color: white;
+    line-height: 0.95;
+    text-shadow: 0 0 40px rgba(255,107,157,0.6), 0 4px 20px rgba(0,0,0,0.5);
+    margin-bottom: 6px;
+  }
+
+  .hero-title span { color: #FFD93D; }
+
+  .hero-sub {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1rem;
+    color: rgba(255,255,255,0.7);
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* FEATURES STRIP */
+  .features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .feat {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 16px;
+    padding: 14px 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    backdrop-filter: blur(10px);
+  }
+
+  .feat-icon { font-size: 1.6rem; flex-shrink: 0; }
+  .feat-text {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.9);
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  /* ALPHABET PREVIEW */
+  .alpha-preview {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 4px 20px 16px;
+    position: relative;
+    z-index: 2;
+    flex-wrap: wrap;
+  }
+
+  .alpha-chip {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.3rem;
+    color: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    flex-shrink: 0;
+  }
+
+  /* AGE BAND */
+  .age-band {
+    margin: 0 20px 16px;
+    background: linear-gradient(90deg, #6BCB77, #20C997);
+    border-radius: 14px;
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 2;
+  }
+  .age-left {
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 900;
+    font-size: 1rem;
+    color: white;
+  }
+  .age-right { font-size: 1.4rem; }
+
+  /* PRICE CTA */
+  .cta {
+    margin: 0 20px 24px;
+    background: linear-gradient(135deg, #FF6B35, #FF6B9D);
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 8px 30px rgba(255,107,53,0.4);
+  }
+
+  .price-block { }
+  .price-label {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.8);
+    font-weight: 700;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .price-num {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.4rem;
+    color: white;
+    line-height: 1;
+  }
+  .price-currency {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1rem;
+    color: rgba(255,255,255,0.85);
+    font-weight: 700;
+  }
+
+  .cta-btn {
+    background: white;
+    color: #FF6B35;
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 900;
+    font-size: 1rem;
+    padding: 12px 22px;
+    border-radius: 14px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    white-space: nowrap;
+  }
+
+  /* BOTTOM */
+  .bottom-bar {
+    background: rgba(0,0,0,0.3);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 2;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .bottom-contact {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.7);
+    font-weight: 700;
+  }
+  .bottom-contact strong { color: #FFD93D; }
+  .whatsapp-icon { font-size: 1.6rem; }
+
+  /* Stars */
+  .stars {
+    text-align: center;
+    font-size: 1rem;
+    letter-spacing: 4px;
+    padding: 0 20px 14px;
+    color: #FFD93D;
+    position: relative;
+    z-index: 2;
+  }
+</style>
+</head>
+<body>
+<div class="poster">
+  <!-- blobs -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <!-- badge -->
+  <div class="top-badge">
+    <span class="badge-pill">🌟 كتاب تعليمي رقمي للأطفال</span>
+  </div>
+
+  <!-- hero -->
+  <div class="hero">
+    <span class="hero-emojis">🔤 🔢 🎨</span>
+    <div class="hero-title">ABC<br><span>&</span> 123</div>
+    <div class="hero-sub">My First Learning Book</div>
+  </div>
+
+  <!-- alphabet preview -->
+  <div class="alpha-preview">
+    <div class="alpha-chip" style="background:#FF6B35">A</div>
+    <div class="alpha-chip" style="background:#FF6B9D">B</div>
+    <div class="alpha-chip" style="background:#4D96FF">C</div>
+    <div class="alpha-chip" style="background:#6BCB77">D</div>
+    <div class="alpha-chip" style="background:#A855F7">E</div>
+    <div class="alpha-chip" style="background:#FFD93D; color:#333">F</div>
+    <div class="alpha-chip" style="background:#20C997">G</div>
+  </div>
+
+  <!-- features -->
+  <div class="features">
+    <div class="feat">
+      <span class="feat-icon">🔤</span>
+      <div class="feat-text">الحروف الإنجليزية<br>A إلى Z</div>
+    </div>
+    <div class="feat">
+      <span class="feat-icon">🔢</span>
+      <div class="feat-text">الأرقام<br>1 إلى 10</div>
+    </div>
+    <div class="feat">
+      <span class="feat-icon">🎨</span>
+      <div class="feat-text">الألوان<br>والأشكال</div>
+    </div>
+    <div class="feat">
+      <span class="feat-icon">🧠</span>
+      <div class="feat-text">اختبار تفاعلي<br>ممتع 🎮</div>
+    </div>
+  </div>
+
+  <!-- age band -->
+  <div class="age-band">
+    <div class="age-left">✅ يشتغل بدون أنترنت<br>على أي هاتف أو كمبيوتر</div>
+    <div class="age-right">📱💻</div>
+  </div>
+
+  <!-- stars -->
+  <div class="stars">⭐⭐⭐⭐⭐</div>
+
+  <!-- CTA -->
+  <div class="cta">
+    <div class="price-block">
+      <span class="price-label">السعر الخاص</span>
+      <span class="price-num">200</span>
+      <span class="price-currency"> دج فقط</span>
+    </div>
+    <button class="cta-btn">اطلب الآن 🛒</button>
+  </div>
+
+  <!-- bottom -->
+  <div class="bottom-bar">
+    <div class="bottom-contact">
+      للطلب واتساب:<br>
+      <strong>+213 XXXXXXXXX</strong>
+    </div>
+    <span class="whatsapp-icon">💬</span>
+  </div>
+</div>
+</body>
+</html>
